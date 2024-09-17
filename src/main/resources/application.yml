@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: scm2.0
+
+
+server:
+  port: 8081
