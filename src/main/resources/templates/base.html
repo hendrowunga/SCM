@@ -14,12 +14,22 @@
 
         <!-- commona header -->
 
+        <div data-th-replace="navbar :: navbar">
+
+        </div>
+
         <!-- main content -->
-        <section data-th-replace="${content}"> </section>
+
+        <div class="p-4">
+            <section data-th-replace="${content}"> </section>
+        </div>
 
         <!-- flow bite content -->
 
         <!-- common footer -->
+        <footer class="p-4">
+            Footer: Hendro Wunga
+        </footer>
 
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
