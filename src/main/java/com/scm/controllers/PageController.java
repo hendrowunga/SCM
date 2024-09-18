@@ -11,16 +11,17 @@ public class PageController {
     public String home(Model model) {
 
         System.out.println("Home page handler");
-        model.addAttribute("name","Substring Technologies");
-        model.addAttribute("youtubeChannel","Hendro Wunga");
-        model.addAttribute("githubRepository","https://github.com/hendrowunga/SpringBoot-monolithic");
+        model.addAttribute("name", "Substring Technologies");
+        model.addAttribute("youtubeChannel", "Hendro Wunga");
+        model.addAttribute("githubRepository", "https://github.com/hendrowunga/SpringBoot-monolithic");
         return "home";
     }
 
-    //about route
+    // about route
 
     @RequestMapping("/about")
-    public String aboutPage(){
+    public String aboutPage(Model model){
+        model.addAttribute("isLogin",true);
         System.out.println("About page loading");
         return "about";
     }
@@ -28,7 +29,7 @@ public class PageController {
     // Service
 
     @RequestMapping("/services")
-    public String servicesPage(){
+    public String servicesPage() {
         System.out.println("services page loading");
         return "services";
     }

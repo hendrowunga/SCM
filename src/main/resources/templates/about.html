@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>About</title>
     </head>
     <body>
 
@@ -11,9 +11,21 @@
         <hr />
 
         <!-- Using fragment -->
-        <div class="host-tag" th:replace="~{base :: parent(~{::div})}">
-            <div>this is dynamic content</div>
-
+        <div class="host-tag"
+            th:replace="${isLogin} ? ~{base :: parent(~{::section})} : ~{base :: test}">
+            <section>
+                <h1>User is logged in</h1>
+                <h2>Dynamic Content</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
+                    iusto officia expedita neque libero hic quo, eius soluta
+                    accusamus numquam at doloribus necessitatibus, nobis ut
+                    officiis laudantium ipsa beatae minus.</p>
+                <button>Click on</button>
+            </section>
+            <section id="not_logged_in">
+                <h1>User is not logged in</h1>
+            </section>
         </div>
+
     </body>
 </html>

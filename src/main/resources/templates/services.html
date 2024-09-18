@@ -10,9 +10,16 @@
         <hr />
 
         <!-- Using fragment -->
-        <!-- <div class="host-tag" th:replace="~{base :: parent(~{::div})}"></div>
+        <div class="host-tag" th:replace="~{base :: parent(~{::#main_tes})}"></div>
+        <section id="main_content">
             <div>this is dynamic content</div>
+        </section>
+            
+        <section id="main_tes">
+            <div>Hallo Hendro</div>
+        </section>
+            
 
-        </div> -->
+        </div>
     </body>
 </html>
