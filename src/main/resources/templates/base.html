@@ -1,4 +1,35 @@
-<div class="parent-fragment" th:fragment="parent(content)">
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title,script)"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title data-th-replace="${title}">SCM</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
+            rel="stylesheet" />
+        <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
+    </head>
+    <body>
+
+        <!-- commona header -->
+
+        <!-- main content -->
+        <section data-th-replace="${content}"> </section>
+
+        <!-- flow bite content -->
+
+        <!-- common footer -->
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <th:block data-th-replace="${script}"></th:block>
+    </body>
+</html>
+
+<!-- How to use exception: -->
+
+<!-- <div class="parent-fragment" th:fragment="parent(content)">
     <h1>This is parent fragment</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati animi
         cumque fuga eaque ea, ducimus ut deleniti perspiciatis doloribus esse
@@ -8,4 +39,4 @@
 
 <div th:fragment="test(content)">
     <div th:replace="${content}"></div>
-</div>
+</div> -->

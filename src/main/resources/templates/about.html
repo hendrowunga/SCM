@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>About</title>
+        <title>About Page</title>
     </head>
     <body>
+        <div id="content">
+            <h1>Welcome to about page</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi
+                placeat incidunt consequatur fugit illo quibusdam quam hic.
+                Expedita necessitatibus nisi unde quae, ratione in odit repellat
+                illum, eaque itaque magnam.</p>
+        </div>
+        <script>
+            console.log("about page");
+        </script>
+    </body>
+</html>
 
-        <h1>This is about page</h1>
-        <hr />
+<!-- How to use exception: -->
 
-        <!-- Using fragment -->
-        <div class="host-tag"
+<!-- Using fragment -->
+<!-- <div class="host-tag"
             th:replace="${isLogin} ? ~{base :: parent(~{::section})} : ~{base :: test}">
             <section>
                 <h1>User is logged in</h1>
@@ -25,7 +35,4 @@
             <section id="not_logged_in">
                 <h1>User is not logged in</h1>
             </section>
-        </div>
-
-    </body>
-</html>
+        </div> -->
