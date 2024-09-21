@@ -1,10 +1,10 @@
 package com.scm.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -20,9 +20,9 @@ public class User {
     private String name;
     private String email;
     private String password;
-    @Column(length = 10000)
+    @Column(length = 1000)
     private String about;
-    @Column(length = 10000)
+    @Column(length = 1000)
     private String profilePic;
     private String phoneNumber;
     // information
@@ -34,6 +34,9 @@ public class User {
     private Providers provider=Providers.SELF;
     private String providerUserId;
 
+    // add more field if needed
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<Contact> contacts=new ArrayList<>();
 
 
 }
