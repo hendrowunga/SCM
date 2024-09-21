@@ -1,20 +1,20 @@
 server:
   port: 8081
 
-# mysql database configurations
-# database source url
+# MySQL database configurations
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/scm
+    url: jdbc:mysql://localhost:3306/scm2.0?useSSL=false&serverTimezone=UTC
     username: root
     password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver  # Menambahkan driver class untuk JDBC
 
-  #jpa configurations
+  # JPA configurations
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto: update  # Mengatur Hibernate untuk memperbarui skema tanpa menghapus data
+    show-sql: true       # Menampilkan SQL yang dieksekusi oleh Hibernate di log
     properties:
       hibernate:
-        ddl-auto: update
-        format_sql: true
-
-
+        format_sql: true  # Memformat output SQL agar lebih mudah dibaca
+    open-in-view: false   # Disarankan untuk menghindari LazyInitializationException
