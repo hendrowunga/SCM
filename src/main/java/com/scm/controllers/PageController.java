@@ -1,6 +1,9 @@
 package com.scm.controllers;
 
+import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home(Model model) {
@@ -71,7 +77,25 @@ public class PageController {
         // UserForm
         System.out.println(userForm);
         // validate form data
+        // TODO::Validate userForm[Next Video]
+
         // save to database
+
+        // userservice
+
+         //UserForm--> User
+         User user = User.builder()
+         .name(userForm.getName())
+         .email(userForm.getEmail())
+         .password(userForm.getPassword())
+         .about(userForm.getAbout())
+         .phoneNumber(userForm.getPhoneNumber())
+         .profilePic(
+         "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
+         .build();
+
+         User savedUser=userService.saveUser(user);
+         System.out.println("user saved");
         // message = "Registration Successful"
         // redirectto login page
 
