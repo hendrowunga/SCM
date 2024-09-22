@@ -16,7 +16,7 @@ import java.util.List;
 public class User {
     @Id
     private String userId;
-    @Column(name = "user_name",nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String name;
     private String email;
     private String password;
@@ -26,18 +26,18 @@ public class User {
     private String profilePic;
     private String phoneNumber;
     // information
-    private boolean enabled=false;
-    private boolean emailVerified=false;
-    private boolean phoneVerified=false;
+    private boolean enabled = false;
+    private boolean emailVerified = false;
+    private boolean phoneVerified = false;
 
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
     @Enumerated(value = EnumType.STRING)
-    private Providers provider=Providers.SELF;
+    private Providers provider = Providers.SELF;
     private String providerUserId;
 
     // add more field if needed
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-    private List<Contact> contacts=new ArrayList<>();
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Contact> contacts = new ArrayList<>();
+    private String emailToken;
 
 }
