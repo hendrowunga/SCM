@@ -3,9 +3,12 @@ package com.scm.controllers;
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
 import com.scm.services.UserService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,19 +74,22 @@ public class PageController {
 
     // processing register
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session) {
         System.out.println("Processing Registration");
         // fetch form data
         // UserForm
         System.out.println(userForm);
         // validate form data
+        if (rBindingResult.hasErrors()) {
+            return "register";
+        }
         // TODO::Validate userForm[Next Video]
 
         // save to database
 
         // userservice
 
-         //UserForm--> User
+        //UserForm--> User
          User user = User.builder()
          .name(userForm.getName())
          .email(userForm.getEmail())
@@ -94,8 +100,19 @@ public class PageController {
          "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
          .build();
 
-         User savedUser=userService.saveUser(user);
-         System.out.println("user saved");
+
+//        User user = new User();
+//        user.setName(userForm.getName());
+//        user.setEmail(userForm.getEmail());
+//        user.setPassword(userForm.getPassword());
+//        user.setAbout(userForm.getAbout());
+//        user.setPhoneNumber(userForm.getPhoneNumber());
+//        user.setEnabled(false);
+//        user.setProfilePic(
+//                "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg");
+
+        User savedUser = userService.saveUser(user);
+        System.out.println("user saved");
         // message = "Registration Successful"
         // redirectto login page
 
