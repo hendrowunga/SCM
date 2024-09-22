@@ -1,7 +1,9 @@
 package com.scm.controllers;
 
+import com.scm.forms.UserForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,15 +52,30 @@ public class PageController {
 
     // register
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        UserForm userForm = new UserForm();
+
+        // default data bhi daal sakte hai
+        // userForm.setName("Durgesh");
+        // userForm.setAbout("This is about : Write something about yourself");
+
+        model.addAttribute("userForm", userForm);
         return new String("register");
     }
 
     // processing register
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister() {
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing Registration");
+        // fetch form data
+        // UserForm
+        System.out.println(userForm);
+        // validate form data
+        // save to database
+        // message = "Registration Successful"
+        // redirectto login page
 
-        return "";
+        return "redirect:/register";
     }
 
 }
