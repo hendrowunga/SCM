@@ -4,19 +4,15 @@ import com.scm.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private UserService userService;
 
     // user dashbaord page
 
@@ -29,7 +25,7 @@ public class UserController {
     // user profile page
 
     @RequestMapping(value = "/profile")
-    public String UserProfile(Model model, Authentication authentication) {
+    public String UserProfile() {
         return "user/profile";
     }
 
