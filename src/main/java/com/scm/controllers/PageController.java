@@ -2,6 +2,8 @@ package com.scm.controllers;
 
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
 import com.scm.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -90,15 +92,15 @@ public class PageController {
         // userservice
 
         //UserForm--> User
-         User user = User.builder()
-         .name(userForm.getName())
-         .email(userForm.getEmail())
-         .password(userForm.getPassword())
-         .about(userForm.getAbout())
-         .phoneNumber(userForm.getPhoneNumber())
-         .profilePic(
-         "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
-         .build();
+        User user = User.builder()
+                .name(userForm.getName())
+                .email(userForm.getEmail())
+                .password(userForm.getPassword())
+                .about(userForm.getAbout())
+                .phoneNumber(userForm.getPhoneNumber())
+                .profilePic(
+                        "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
+                .build();
 
 
 //        User user = new User();
@@ -112,8 +114,10 @@ public class PageController {
 //                "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg");
 
         User savedUser = userService.saveUser(user);
-        System.out.println("user saved");
+        System.out.println("user saved : ");
         // message = "Registration Successful"
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+        session.setAttribute("message", message);
         // redirectto login page
 
         return "redirect:/register";
