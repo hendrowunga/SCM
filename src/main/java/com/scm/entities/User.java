@@ -38,6 +38,6 @@ public class User {
     // add more field if needed
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
-    private String emailToken;
+//    private String emailToken;
 
 }
