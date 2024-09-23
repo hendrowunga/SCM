@@ -3,7 +3,6 @@ package com.scm.services.impl;
 import com.scm.entities.User;
 import com.scm.helpers.ResourceNotFoundException;
 import com.scm.repositories.UserRepo;
-import com.scm.services.EmailService;
 import com.scm.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +18,6 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private EmailService emailService;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -31,7 +26,7 @@ public class UserServiceImpl implements UserService {
         String userId= UUID.randomUUID().toString();
         user.setUserId(userId);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // set the user role
 
@@ -86,8 +81,8 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
-    @Override
-    public User getUserByEmail(String email) {
-        return userRepo.findByEmail(email).orElse(null);
-    }
+//    @Override
+//    public User getUserByEmail(String email) {
+//        return userRepo.findByEmail(email).orElse(null);
+//    }
 }
