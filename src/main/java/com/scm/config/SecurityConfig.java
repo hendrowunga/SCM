@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,26 +41,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // configuration
         // Urls dikonfigurasi agar mengetahui mana yang akan dipublikasikan dan mana yang akan diprivasi
-        httpSecurity.authorizeHttpRequests(
-                authorization -> {
+        httpSecurity.authorizeHttpRequests(authorization -> {
 //                    authorization.requestMatchers("/home","/register","services").permitAll();
-                    authorization.requestMatchers("/user/**").authenticated();
-                    authorization.anyRequest()
-                            .permitAll();
-                });
+            authorization.requestMatchers("/user/**").authenticated();
+            authorization.anyRequest().permitAll();
+        });
 //        Ini Membuat perubahan pada form login, maka kw modifikasi harus dilakukan di area kode ini.
 
-        httpSecurity.formLogin
-                (formLogin -> {
-                    formLogin.loginPage("/login");
-                    formLogin.loginProcessingUrl("/authenticate");
-                    formLogin.successForwardUrl("/user/profile");
-
-                    formLogin.failureForwardUrl("/login?error=true");
+        httpSecurity.formLogin(formLogin -> {
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/authenticate");
+            formLogin.successForwardUrl("/user/profile");
 //                    formLogin.defaultSuccessUrl("/home");
 
-                    formLogin.usernameParameter("email");
-                    formLogin.passwordParameter("password");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
 
 //                    formLogin.failureHandler(new AuthenticationFailureHandler() {
 //                        @Override
@@ -78,9 +74,19 @@ public class SecurityConfig {
 //                        }
 //                    });
 
-                    formLogin.failureHandler(null);
+            formLogin.failureHandler(null);
 
-                });
+        });
+
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
+        // oauth configuration
+
+        httpSecurity.logout(logoutForm -> {
+            logoutForm.logoutUrl("/do-logout");
+            logoutForm.logoutSuccessUrl("/login?logout=true");
+        });
+
         return httpSecurity.build();
     }
 
