@@ -1,6 +1,5 @@
 package com.scm.config;
 
-import com.scm.entities.Providers;
 import com.scm.entities.User;
 import com.scm.helpers.AppConstants;
 import com.scm.repositories.UserRepo;
@@ -8,8 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -36,44 +35,104 @@ public class OAuthAuthenicationSuccessHandler implements AuthenticationSuccessHa
             HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
         logger.info("OAuthAuthenicationSuccessHandler");
-        DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
-//        logger.info(user.getName());
-//
-//        user.getAttributes().forEach((key, value) -> {
-//            logger.info("{}=> {}", key, value);
-//        });
-//
-//        logger.info(user.getAuthorities().toString());
 
-        // data database save
-        String email = user.getAttribute("email").toString();
-        String name = user.getAttribute("name").toString();
-        String picture = user.getAttribute("picture").toString();
+        // identity the provider
+        var oauth2AuthenicationToken = (OAuth2AuthenticationToken) authentication;
 
-        // create user and save in database
-        User user1 = new User();
-        user1.setEmail(email);
-        user1.setName(name);
-        user1.setProfilePic(picture);
-        user1.setPassword("password");
-        user1.setUserId(UUID.randomUUID().toString());
-        user1.setProvider(Providers.GOOGLE);
-        user1.setEnabled(true);
+        String authorizedClientRegistrationId = oauth2AuthenicationToken.getAuthorizedClientRegistrationId();
 
-        user1.setEmailVerified(true);
-        user1.setProviderUserId(user.getName());
-        user1.setRoleList(List.of(AppConstants.ROLE_USER));
-        user1.setAbout("This account is created using google ... ");
+        logger.info(authorizedClientRegistrationId);
 
-        User user2= userRepo.findByEmail(email).orElse(null);
-        if (user2== null){
-            userRepo.save(user1);
-            logger.info("User saved :" + email);
+        var oauthUser = (DefaultOAuth2User) authentication.getPrincipal();
+
+        oauthUser.getAttributes().forEach((key, value) -> {
+            logger.info(key + " : " + value);
+        });
+
+        User user =new User();
+        user.setUserId(UUID.randomUUID().toString());
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+        user.setEmailVerified(true);
+        user.setEnabled(true);
+        user.setPassword("dummy");
+
+        if (authorizedClientRegistrationId.equalsIgnoreCase("google")) {
+            // google
+            // google attributes
+
+        } else if (authorizedClientRegistrationId.equalsIgnoreCase("github")) {
+            // github
+            // github attributes
+
+        } else if (authorizedClientRegistrationId.equalsIgnoreCase("linkedin")) {
+
+        } else {
+            logger.info("OAuthAuthenicationSuccessHandler: Unknown provider");
         }
+
+
+        // facebook
+        // facebook attributes
+
+        // linkedin
+        // linkedin attributes
+
 
         new DefaultRedirectStrategy().sendRedirect(request, response, "/user/profile");
     }
 
 
 }
+
+/*
+ save the user
+ facebook
+ facebook attributes
+ linkedin
+ */
+
+/*
+ *
+ *
+ *
+ * DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
+ *
+ * logger.info(user.getName());
+ *
+ * user.getAttributes().forEach((key, value) -> {
+ * logger.info("{} => {}", key, value);
+ * });
+ *
+ * logger.info(user.getAuthorities().toString());
+ *
+ * // data database save:
+ *
+ * String email = user.getAttribute("email").toString();
+ * String name = user.getAttribute("name").toString();
+ * String picture = user.getAttribute("picture").toString();
+ *
+ * // create user and save in database
+ *
+ * User user1 = new User();
+ * user1.setEmail(email);
+ * user1.setName(name);
+ * user1.setProfilePic(picture);
+ * user1.setPassword("password");
+ * user1.setUserId(UUID.randomUUID().toString());
+ * user1.setProvider(Providers.GOOGLE);
+ * user1.setEnabled(true);
+ *
+ * user1.setEmailVerified(true);
+ * user1.setProviderUserId(user.getName());
+ * user1.setRoleList(List.of(AppConstants.ROLE_USER));
+ * user1.setAbout("This account is created using google..");
+ *
+ * User user2 = userRepo.findByEmail(email).orElse(null);
+ * if (user2 == null) {
+ *
+ * userRepo.save(user1);
+ * logger.info("User saved:" + email);
+ * }
+ *
+ */
 
