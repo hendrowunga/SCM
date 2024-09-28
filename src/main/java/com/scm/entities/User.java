@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
     @Enumerated(value = EnumType.STRING)
-    private Providers provider = Providers.SELF;
+    private Providers provider=Providers.SELF;
     private String providerUserId;
 
     //    private String emailToken;
