@@ -1,5 +1,6 @@
 package com.scm.controllers;
 
+import com.scm.helpers.Helper;
 import com.scm.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,13 @@ public class UserController {
     @RequestMapping(value = "/profile")
     public String UserProfile(Principal principal) {
         String name = principal.getName();
+
+        String username=Helper.getEmailOfLoggedInUser(principal);
+
+
         logger.info("user logged ni: {}", name);
+
+
         System.out.println("User profile");
         return "user/profile";
     }
