@@ -60,13 +60,13 @@ public class PageController {
         return new String("contact");
     }
 
-    // login
+    // this is showing login page
     @GetMapping("/login")
     public String login() {
         return new String("login");
     }
 
-    // register
+    // registration page
     @GetMapping("/register")
     public String register(Model model) {
         UserForm userForm = new UserForm();

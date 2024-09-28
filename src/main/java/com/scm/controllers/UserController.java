@@ -9,10 +9,17 @@ import org.springframework.stereotype.Controller;
 //import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    private UserService userService;
 
     // user dashbaord page
 
@@ -25,7 +32,10 @@ public class UserController {
     // user profile page
 
     @RequestMapping(value = "/profile")
-    public String UserProfile() {
+    public String UserProfile(Principal principal) {
+        String name = principal.getName();
+        logger.info("user logged ni: {}", name);
+        System.out.println("User profile");
         return "user/profile";
     }
 
