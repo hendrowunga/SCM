@@ -76,7 +76,7 @@ public class PageController {
         // userForm.setAbout("This is about : Write something about yourself");
 
         model.addAttribute("userForm", userForm);
-        return new String("register");
+        return ("register");
     }
 
     // processing register
