@@ -34,10 +34,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // configuration
         // Urls dikonfigurasi agar mengetahui mana yang akan dipublikasikan dan mana yang akan diprivasi
-        httpSecurity.authorizeHttpRequests(authorization -> {
+        httpSecurity.authorizeHttpRequests(authorize  -> {
 //                    authorization.requestMatchers("/home","/register","services").permitAll();
-            authorization.requestMatchers("/user/**").authenticated();
-            authorization.anyRequest().permitAll();
+            authorize.requestMatchers("/user/**").authenticated();
+            authorize.anyRequest().permitAll();
         });
 //        Ini Membuat perubahan pada form login, maka kw modifikasi harus dilakukan di area kode ini.
 
@@ -56,21 +56,20 @@ public class SecurityConfig {
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        // oauth configurations
 
-        // oauth configuration
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler);
         });
-
 
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/do-logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
         });
 
-
         return httpSecurity.build();
+
     }
 
     @Bean
