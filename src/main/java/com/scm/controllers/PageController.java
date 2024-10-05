@@ -97,26 +97,15 @@ public class PageController {
         // userservice
 
         //UserForm--> User
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .phoneNumber(userForm.getPhoneNumber())
-                .profilePic(
-                        "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
-                .build();
-
-
-//        User user = new User();
-//        user.setName(userForm.getName());
-//        user.setEmail(userForm.getEmail());
-//        user.setPassword(userForm.getPassword());
-//        user.setAbout(userForm.getAbout());
-//        user.setPhoneNumber(userForm.getPhoneNumber());
-//        user.setEnabled(false);
-//        user.setProfilePic(
-//                "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg");
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEnabled(false);
+        user.setProfilePic(
+                "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg");
 
         User savedUser = userService.saveUser(user);
         System.out.println("user saved : ");
@@ -129,3 +118,14 @@ public class PageController {
     }
 
 }
+
+
+//User user = User.builder()
+//        .name(userForm.getName())
+//        .email(userForm.getEmail())
+//        .password(userForm.getPassword())
+//        .about(userForm.getAbout())
+//        .phoneNumber(userForm.getPhoneNumber())
+//        .profilePic(
+//                "https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg")
+//        .build();
