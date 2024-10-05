@@ -43,7 +43,7 @@ public class User implements UserDetails {
     private Providers provider=Providers.SELF;
     private String providerUserId;
 
-    //    private String emailToken;
+        private String emailToken;
 
     // add more field if needed
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
